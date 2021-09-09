@@ -1,0 +1,47 @@
+/proc/#/map gives loaded objects
+
+printf=0x80487d0, fopen=0x80487b0
+printf-dl=0x80487d0
+
+section named .plt is address/size of PLT 
+    vaddr (0x80486f0), offset (0x6f0) size (368)
+
+GOT index 0 is section .got
+----SECTION  24: sec_name (236,.got), type (1) flags (0x3)
+      vaddr (0x804dff0), offset (0x4ff0) size (4) [data addr=0x804cff0]
+Rest of GOT is .got.plt
+----SECTION  25: sec_name (241,.got.plt), type (1) flags (0x3)
+      vaddr (0x804dff4), offset (0x4ff4) size (100) [data addr=0x804cff4]
+
+dynamic entry type=3 is .got.plt address (GOT after index 0)
+
+Dynamic symbols:
+  -- only have a value if referenced in the program with & operator
+  -- how to tell which PLT/GOT entry!?
+  dynsym (0x8048340) is (fclose), val 0, size 1b7, (1,2,0,0)
+  dynsym (0x8048350) is (fopen), val 80487b0, size 32, (1,2,0,0)
+  dynsym (0x8048360) is (strcpy), val 0, size 22, (1,2,0,0)
+  dynsym (0x8048370) is (printf), val 80487d0, size 39, (1,2,0,0)
+
+    80487d0
+- 0x80486f0
+  ---------
+         e0 = 14*16 = 160+32+32 = 224 / 4 = 56 /4 = 14
+
+
+REL section has GOT[0] entry (but maybe all remote non-func symbols?)
+PLTREL section has GOT[n..m] entries
+  -- printf is 14th symbol, so maybe PLT base + 16 * 14?
+
+
+So, need API to get:
+  -- given symbol and shared object, find PLT entry address 
+     and GOT entry address
+  -- given shared object, iterate down GOT and retrieve GOT entry
+     address and symbol pairs (and PLT where appropriate)
+  -- given symbol, get symbol type and location? and size? and attrs?
+  -- given symbol, get load object where it is defined
+
+GOT has a link-map pointer!
+  -- where?
+

@@ -1,2 +1,3 @@
 # ELFReader
-CPP library for introspection of ELF binary file format information
+
+C++ library for introspection of ELF binary file format information

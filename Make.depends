@@ -1,0 +1,7 @@
+DynamicSection.o: DynamicSection.cpp ElfProgram.h
+elfreader.o: elfreader.cpp ElfProgram.h
+ElfSection.o: ElfSection.cpp ElfProgram.h
+ElfSegment.o: ElfSegment.cpp ElfProgram.h
+ElfSymbol.o: ElfSymbol.cpp ElfProgram.h
+LoadObject.o: LoadObject.cpp ElfProgram.h
+ProgramInfo.o: ProgramInfo.cpp ElfProgram.h

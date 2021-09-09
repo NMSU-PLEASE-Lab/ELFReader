@@ -1,0 +1,24 @@
+printf=0x8048718, fopen=0x80486f8
+printf-dl=0x8048718
+
+dynamic: tag (0x3)  val (0x804dff4)  -- is the GOT address, actualy GOT[1],
+  is plt/got address                    not GOT[0] (GOT[0]=='__gmon_start__')
+
+dynamic: tag (0x17)  val (0x80485b0)
+   JMPREL address of plt relocs: 0x80485b0
+
+have REL section at 0x80485a8 count 1     
+  0: offset 0x804dff0, type 6 symndx 3  // is first entry in GOT == dynlinker?
+                                        // trace shows "__gmon_start__"
+
+ 0x8718
+-0x86f8
+-------
+     20
+
+ 11 .plt          00000130  08048658  08048658  00000658  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+ 23 .got          00000004  0804dff0  0804dff0  00004ff0  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+ 24 .got.plt      00000054  0804dff4  0804dff4  00004ff4  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
